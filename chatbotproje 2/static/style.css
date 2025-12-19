@@ -1,0 +1,987 @@
+:root {
+    /* 
+    Temel renk paletini ve tekrar eden değerleri tanımladığımız kök alan.
+    Bu yapı sayesinde renk, gölge ve radius gibi değerler tek noktadan
+    yönetilir ve bakım kolaylığı sağlanır.
+    */
+    --primary-color: #b30000;      /* OBS ana rengi – Atatürk Üniversitesi kırmızısı */
+    --primary-dark: #8a0000;       /* Ana rengin koyu tonu (hover/aktif durumlar) */
+
+    /* Arayüz genelinde kullanılan temel renkler */
+    --background: #f4f6f9;
+    --white: #ffffff;
+    --text-dark: #2d3436;
+    --text-gray: #636e72;
+
+    /* Chat mesaj renkleri */
+    --message-bot-bg: #eaeff2;
+    --message-user-bg: #b30000;
+    --message-user-text: #ffffff;
+
+    /* Ortak tasarım değerleri */
+    --border-radius: 12px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+Global Box Sizing
+Tasarım Kararı:
+Padding ve border değerlerinin elementin toplam genişliğine
+dahil edilmesini sağlayarak responsive tasarımı daha öngörülebilir hale getirir.
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 
+Base & Reset
+Tarayıcıların varsayılan margin/padding değerlerini sıfırlıyoruz,
+Roboto fontunu uyguluyor ve tam ekran düzen için height:100% kullanıyoruz.
+*/
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 
+GLOBAL LOGIN PAGE STYLES
+Giriş ekranına ait tüm temel stiller bu bölümde toplanmıştır.
+*/
+.login-page {
+    /* position: fixed ile tüm ekranı kaplar ve sabitlenir */
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /* %100 genişlik ve yükseklik ile tam ekran */
+    width: 100vw;
+    height: 100vh;
+
+    /* Arka plan görseli */
+    background-image: url('login-bg-custom.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* İçeriği yatay ve dikey ortalar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Diğer tüm içeriklerin üzerinde görünmesi için */
+    z-index: 10000;
+}
+
+/* 
+Giriş ekranı üzerindeki yarı saydam renkli ve noktalı desenli bindirme (overlay) katmanı.	Arka plan resmine mavi tonu veren ve formu daha okunaklı kılan karmaşık bir CSS deseni ve backdrop-filter: blur(1px) ile hafif bir bulanıklık efekti uygulandı.
+*/
+.login-overlay {
+    width: 100%;
+    height: 100%;
+
+    /* Mavi yarı saydam renk */
+    background-color: rgba(30, 60, 90, 0.6);
+
+    /* Noktalı desen efekti */
+    background-image:
+        radial-gradient(#111 20%, transparent 20%),
+        radial-gradient(#111 20%, transparent 20%);
+    background-position: 0 0, 2px 2px;
+    background-size: 4px 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Arka planı hafif bulanıklaştırarak derinlik katar */
+    backdrop-filter: blur(1px);
+}
+
+/* 
+Giriş formu ve logonun içinde bulunduğu kapsayıcının dikey düzeni.	Formu dikey olarak ortalar ve içindeki öğeleri alt alta sıralar.
+*/
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 340px;
+}
+
+/* 
+Logonun boyutu ve gölge efekti.	Logonun boyutunu belirler ve görsel derinlik katmak için drop-shadow efekti ekler.
+*/
+.uni-logo img {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+}
+
+/* 
+Formun içindeki elementler arası boşluklar (gap).	Form elemanlarını dikey olarak 12px boşlukla hizalar.
+*/
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 
+İkon ve giriş alanını tek bir kutu içinde birleştiren kapsayıcı.	İkon ve input'un yan yana durmasını sağlayan display: flex yapısını ve kenar stilini tanımlar.
+*/
+.input-group {
+    position: relative;
+    width: 100%;
+    height: 48px;
+
+    display: flex;
+    background: white;
+
+    border-radius: 3px;
+    overflow: hidden;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+Giriş alanının solundaki gri arka planlı ikon kutusu.	İkonun ortalanmasını ve girişten görsel olarak ayrılmasını sağlar.
+*/
+.input-icon {
+    width: 45px;
+    background: #e6e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 1.1rem;
+    border-right: 1px solid #ddd;
+}
+
+/* 
+Giriş alanının stili.	Varsayılan kenarlıkları kaldırır, iç dolguyu ve yazı tipi boyutunu ayarlar.
+*/
+.input-group input {
+    flex: 1;
+    padding: 0 15px;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    color: #333;
+    background: white;
+    border-radius: 0;
+}
+
+.input-group input::placeholder {
+    color: #888;
+}
+
+/* 
+Giriş Butonu
+display:flex ile ikon ve metin ortalanır.
+transition ile hover animasyonu hazırlanır.
+*/
+.global-login-btn {
+    width: 100%;
+    height: 45px;
+    background: #4a9d93;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    transition: 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+}
+
+/* Butona fare ile gelindiğinde (hover) uygulanan koyu arka plan rengi. */
+.global-login-btn:hover {
+    background: #3c827a;
+}
+
+/* 
+Footer ikonları
+Formun altına yardımcı bağlantılar eklemek için kullanılır.
+*/
+.login-footer-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 40px;
+    padding: 0 10px;
+}
+
+/* 
+Alt bilgi ikonlarının metin stili ve dikey hizalama.	Metni ve ikonu alt alta ortalar, metin gölgesi ekleyerek arka plan üzerindeki okunaklılığı artırır.
+*/
+.footer-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 0.75rem;
+    gap: 8px;
+    cursor: pointer;
+    text-align: center;
+    max-width: 60px;
+    text-shadow: 1px 1px 3px black;
+    transition: 0.2s;
+}
+
+/* 
+Alt bilgi ikonlarının dairesel arka planı ve kenarlığı.	İkonlara daire şekli, beyaz kenarlık ve yarı saydam arka plan verir.
+*/
+.footer-icon-item i {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* 
+Alt bilgi ikonlarına fare ile gelindiğinde hafif yukarı hareket efekti.	3D Etki: transform: translateY(-3px) ile görsel hareketlilik katar.
+*/
+.footer-icon-item:hover {
+    transform: translateY(-3px);
+}
+
+.footer-icon-item:hover i {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: white;
+}
+/* 
+Ana Body stili (giriş sonrası).	Dashboard için genel arka plan rengini ve display: flex ile ana uygulama kapsayıcısını ayarlar.
+*/
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+}
+/* 
+Ana uygulama kapsayıcısının tam genişlik ve yükseklik ayarı.
+Sidebar ve ana içeriğin yan yana durmasını sağlar.
+*/
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* ================= SIDEBAR ================= */
+/* 
+Yan menünün genişliği, koyu arka plan rengi ve gölge stili.	Koyu tema ile ana içerikten görsel olarak ayrışmasını sağlar ve z-index ile öne çıkarır.
+*/
+.sidebar {
+    width: 260px;
+    background-color: #1a202c;
+    /* Deep Dark Blue/Navy */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+/* 
+Profil alanı
+Fotoğraf ve isim bilgileri yan yana hizalanır.
+*/
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+/* 
+Mini profil resminin boyutu ve dairesel kenarlığı.
+*/
+.sidebar-profile img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #3b4c63;
+}
+
+.sidebar-profile-info {
+    display: flex;
+    flex-direction: column;
+}
+/* 
+Profildeki isim metninin kalınlığı.
+*/
+#sidebarName {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+/* 
+İsim altındaki küçük durum göstergesi noktacıklarının stili.
+Küçük mavi noktalar ile aktiflik hissi verir.
+*/
+.status-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #63b3ed;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+/* 
+Hızlı erişim ikonları çubuğunun düzeni.    İkonlar arasında boşluk bırakır ve alt kenar boşluğu ekler.
+*/
+.sidebar-quick-icons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+/* 
+Hızlı erişim ikonlarının dairesel buton stili.	İkonlara dolgu, dairesel kenarlık ve koyu arka plan verir.
+*/
+.sidebar-quick-icons a {
+    color: #a0aec0;
+    font-size: 1.1rem;
+    padding: 8px;
+    background: #2d3748;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.2s;
+}
+/* Hover efekti */
+.sidebar-quick-icons a:hover {
+    background: #4a5568;
+    color: white;
+}
+
+.flag-icon {
+    width: 100%;
+    border-radius: 50%;
+}
+/* 
+Arama kutusu
+*/
+.search-box {
+    position: relative;
+    margin-bottom: 15px;
+}
+/* 
+Sidebar içindeki arama kutusunun stili.	Kenarlığı olmayan, yüksek yarıçaplı (pill şeklinde) bir input alanı oluşturur.
+*/
+.search-box input {
+    width: 100%;
+    height: 36px;
+    /* Equal to quick icons */
+    background: #2d3748;
+    border: none;
+    padding: 0 35px 0 15px;
+    border-radius: 18px;
+    /* High radius to look like pill/buttons */
+    color: white;
+    font-size: 0.9rem;
+    line-height: 36px;
+}
+/* 
+Arama butonunun input alanının içine konumlandırılması.	position: absolute ile input kutusunun sağ tarafına yerleştirilir.
+*/
+.search-box button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #10b981;
+    /* Search Icon Color */
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.menu-section {
+    color: #e2e8f0;
+}
+/* 
+Menü başlığının (Öğrenci Bilgi Sistemi) stili.	display: flex ile başlık ve ok ikonunu yan yana hizalar, alt çizgi ekler.
+*/
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 1px solid #2d3748;
+    margin-bottom: 10px;
+}
+/* 
+Menü listesinin varsayılan listeleme işaretlerini kaldırır.
+*/
+.nav-list {
+    list-style: none;
+    padding-left: 0;
+}
+/* 
+Menü öğelerinin temel stili ve hover geçişi.	Her öğeye dolgu, renk ve ikon için sol boşluk sağlar.
+*/
+.nav-list li {
+    padding: 10px 5px;
+    color: #a0aec0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.nav-list li i {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.nav-list li:hover {
+    color: white;
+}
+/* 
+Menü öğelerinin sağındaki küçük dairesel ikonun pozisyonu.	margin-left: auto ile sağa yaslanmasını sağlar.
+*/
+.right-icon {
+    margin-left: auto;
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+.menu-header.collapsed {
+    border-bottom: none;
+    color: #a0aec0;
+    font-weight: 500;
+}
+
+.menu-header.collapsed:hover {
+    color: white;
+}
+
+.logout-trigger:hover {
+    color: #f56565;
+}
+
+/* ================= MAIN CONTENT ================= */
+/* 
+Ana içeriğin düzeni, arka planı ve kaydırma ayarı.	overflow-y: auto ile içerik taştığında dikey kaydırma çubuğu görünür hale gelir.
+*/
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    background: #fdfdfd;
+    padding: 20px 40px;
+}
+/* 
+Geri ok ikonunun stili (mobil menü veya geri gitme).
+*/
+.top-bar {
+    margin-bottom: 20px;
+    color: #4a5568;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* 
+Öğrenci ana bilgi kartının düzeni.	Profil fotoğrafı ve bilgilerin yan yana durmasını sağlar.
+*/
+.student-header-card {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+/* 
+Büyük profil fotoğrafının boyutu ve gölgesi.
+*/
+.student-photo-large img {
+    width: 130px;
+    height: 160px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-info-large {
+    flex: 1;
+}
+/* 
+İsim ve Fakülte/Bölüm metinlerinin stili.
+*/
+.student-info-large h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.role-badge {
+    color: #718096;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 15px;
+}
+/* 
+Hızlı aksiyon butonları
+*/
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+/* 
+Mesaj ve Bildirim gibi hızlı eylem butonlarının stili.	Dairesel kenarlı, gri kenarlıklı butonlar oluşturur.
+*/
+.action-buttons button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 5px;
+    color: #718096;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+    font-size: 1rem;
+}
+/* 
+Hover ile arka plan ve renk değişimi
+*/
+.action-buttons button:hover {
+    background: #edf2f7;
+    color: #2d3748;
+}
+/* 
+Bildirim sayılarını (badge) gösteren küçük, koyu renkli etiket.	position: absolute ile butonun sağ üst köşesine konumlandırılır.
+*/
+.badge-btn span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #2d3748;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+/*Öğrenci No/Sınıf bilgilerinin ayracı ve stili.*/
+.student-meta {
+    font-size: 0.9rem;
+    color: #4a5568;
+    border-top: 1px solid #edf2f7;
+    padding-top: 15px;
+}
+
+.red-text {
+    color: #c53030;
+    font-weight: 500;
+}
+
+/* Sekmeli gezinme çubuğunun düzeni ve alt kenarlığı. */
+.nav-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+/*Sekme butonlarının genel stili.*/
+.nav-tabs button {
+    padding: 12px 25px;
+    border: none;
+    background: #edf2f7;
+    color: #718096;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+/*Aktif sekme stili.	Beyaz arka plan ve alt kenarlığı gizleyen özel bir çizgi ile aktif sekmeyi görsel olarak vurgular.*/
+.nav-tabs button.active {
+    background: white;
+    color: #2d3748;
+    border: 1px solid #e2e8f0;
+    border-bottom: 2px solid white;
+    /* Hide bottom border */
+    position: relative;
+    top: 1px;
+}
+
+/* İçerik alanının temel dolgusu ve önemli duyurular için yeşil renkli, dikkat çekici banner.	Solunda yeşil çizgi (border-left) ile önemi vurgulanır. */
+.dashboard-body {
+    padding: 10px 0;
+}
+
+.text-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.green-banner {
+    background-color: #c6f6d5;
+    color: #22543d;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    border-left: 5px solid #48bb78;
+    cursor: pointer;
+}
+/*Tek bir duyuru içeriği için kart stili.	Kenarlıklı, dolgulu ve temiz bir kart yapısı oluşturur.*/
+.announcement-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 25px;
+    margin-bottom: 25px;
+    background: white;
+}
+
+.announcement-card h3 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.announcement-card p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+/*Duyuru alt bilgisinin (tarih/zaman) düzeni.*/
+.announcement-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #edf2f7;
+    padding-top: 15px;
+    font-size: 0.85rem;
+    color: #718096;
+}
+
+.time-ago {
+    color: #e53e3e;
+}
+
+.center-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.center-content h4 {
+    color: #2b6cb0;
+    margin-top: 15px;
+}
+
+
+/* ================= CHAT WIDGET ================= */
+/* 
+Chatbot'u açıp kapayan kayan (floating) düğmenin stili.	Ekranın sağ alt köşesine sabitlenir (position: fixed). Rengi (Altın/Gold) dikkat çekicidir. transition ile animasyonlara hazırlanır.
+*/
+.chat-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #E1B77E;
+    /* Official Gold */
+    color: #211261;
+    border: 3px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+}
+
+.chat-toggle-btn img {
+    margin-top: 0;
+    width: 24px;
+    height: 24px;
+}
+/* 
+Hover'da düğmeye hareket ve gölge efekti (kullanıcıyı tıklamaya teşvik eder).
+*/
+.chat-toggle-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(225, 183, 126, 0.6);
+}
+/* 
+Chatbot penceresinin gizlenme ve açılma stili.	transform: scale(0) ile başlangıçta sıfır boyutta gizlenir. .chat-widget.open sınıfı eklendiğinde açılma animasyonu (scale(1)) tetiklenir.
+*/
+.chat-widget {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 360px;
+    height: 550px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: bottom right;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+/* 
+Chatbot açıkken uygulanan stiller.
+*/
+.chat-widget.open {
+    transform: scale(1);
+    opacity: 1;
+    bottom: 105px;
+}
+/*Chatbot başlığının stili.	Koyu arka plan, beyaz yazı ve altında Tema Altını renginde kalın bir çizgi (border-bottom).*/
+.widget-header {
+    background: #1a202c;
+    /* Theme Dark Navy */
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #E1B77E;
+    /* Theme Gold */
+    flex-shrink: 0;
+}
+
+.widget-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+/*Chatbot başlığındaki yeşil "online" durum göstergesi noktası.*/
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #48bb78;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #48bb78;
+    margin-right: 10px;
+}
+
+/* Chatbot içindeki ekranın düzenini dikey olarak ayarlar (flex-direction: column). */
+.widget-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.widget-body {
+    padding: 25px;
+    flex: 1;
+    overflow-y: auto;
+    background: #f7fafc;
+}
+
+/*Mesajların gösterildiği kaydırma alan */
+.chat-messages {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+    /*mesajlar taştığında otomatik kaydırma çubuğu oluşur.*/
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+}
+
+/* Tek bir mesajın kapsayıcısı.	Mesajlara yumuşak bir giriş animasyonu (popIn) uygular. */
+.message {
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    animation: popIn 0.3s ease;
+    flex-shrink: 0;
+}
+/*Bot mesajlarını sola, kullanıcı mesajlarını sağa hizalar.*/
+.bot-message {
+    align-self: flex-start;
+}
+
+.user-message {
+    align-self: flex-end;
+}
+
+/* Mesaj baloncuklarının temel stili (dolgu, yuvarlak kenarlık). */
+.message-content {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/*Bot mesajlarının açık gri arka planı ve sol tarafta Tema Mavi/Siyahı aksanı.*/
+.bot-message .message-content {
+    background: #f1f3f5;
+    color: #2d3748;
+    border-left: 4px solid #1a202c;
+    /* Navy Accent */
+    border-bottom-left-radius: 2px;
+}
+/*Kullanıcı mesajlarının koyu (Navy) arka planı ve sağ tarafta Tema Altını aksanı.*/
+.user-message .message-content {
+    background: #1a202c;
+    /* Navy */
+    color: white;
+    border-right: 4px solid #E1B77E;
+    /* Gold Accent */
+    border-bottom-right-radius: 2px;
+}
+/*Mesajın altındaki küçük zaman damgasının stili.*/
+.message-time {
+    font-size: 0.7rem;
+    color: #a0aec0;
+    margin-top: 4px;
+    text-align: right;
+}
+/*Mesajların ekrana gelirken uygulanan hafif büyüme ve solma animasyonu (Smooth UX).*/
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Giriş kutusunun alt kenarlığı ve dolgusu. */
+.chat-input-area {
+    padding: 15px;
+    border-top: 1px solid #edf2f7;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+#chatForm {
+    display: flex;
+    gap: 10px;
+}
+/*Mesaj giriş alanının stili.*/
+#messageInput {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #edf2f7;
+    border-radius: 25px;
+    outline: none;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+#messageInput:focus {
+    border-color: #1a202c;
+}
+/*Gönder butonunun stili.*/
+#chatForm button {
+    width: 40px;
+    height: 40px;
+    background: #1a202c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chatForm button:hover {
+    transform: scale(1.1);
+    background: #2d3748;
+}
+
+
+
+/* Hazır soru çipleri */
+.quick-chips {
+    padding: 12px 15px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    background: #fff;
+    border-top: 1px solid #edf2f7;
+    flex-shrink: 0;
+}
+
+.quick-chips button {
+    border: 1px solid #cbd5e0;
+    color: #4a5568;
+    background: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: 0.2s;
+}
+/*Çiplere fare ile gelindiğinde koyu arka plan ve beyaz yazı rengi uygular.*/
+.quick-chips button:hover {
+    background: #1a202c;
+    color: white;
+    border-color: #1a202c;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+/* 
+Mobil cihazlar için chatbot tam ekran yapılır.
+*/
+@media (max-width: 480px) {
+    .chat-widget {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .chat-widget.open {
+        bottom: 0;
+    }
+
+    .chat-toggle-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+}

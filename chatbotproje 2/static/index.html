@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!-- HTML5 standardını belirtir -->
+<html lang="tr">
+<!-- HTML belgesinin başlangıcı, dil Türkçe olarak ayarlanmıştır -->
+
+<head>
+    <!-- Sayfa ile ilgili meta verilerin ve harici kaynakların yüklendiği bölüm -->
+
+    <meta charset="UTF-8">
+    <!-- UTF-8 karakter seti: Türkçe karakterlerin sorunsuz görüntülenmesini sağlar -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Responsive tasarım: Sayfanın tüm cihazlara uyumlu çalışmasını sağlar -->
+
+    <title>Atatürk Üniversitesi - OBS</title>
+    <!-- Tarayıcı sekmesinde görünen başlık -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Harici CSS dosyası: HTML yapı, CSS görsel tasarım prensibine uygunluk -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts üzerinden Roboto yazı tipi -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome ikon kütüphanesi (CDN) İkonların görünmesini sağlar.-->
+</head>
+
+<body>
+    <!-- Sayfanın kullanıcıya görünen tüm içeriği bu etiket içerisindedir -->
+
+    <!-- GLOBAL LOGIN PAGE : Giriş Sayfası Başlangıcı.JavaScript ile bu ID üzerinden kontrol edilir. -->
+    <div id="loginPage" class="login-page">
+        <!-- Uygulama açıldığında varsayılan olarak görünen giriş ekranı -->
+
+        <div class="login-overlay">
+            <!-- Arka plan ile form arasında opaklık/efekt sağlayan katman -->
+
+            <div class="login-container">
+                <!-- Giriş formunu ortalayan ana kapsayıcı -->
+
+                <div class="uni-logo">
+                    <!-- Üniversite logosunun yer aldığı alan -->
+                    <img src="https://upload.wikimedia.org/wikipedia/tr/e/e3/Atat%C3%BCrk_%C3%9Cniversitesi_logosu.png"
+                        alt="Atatürk Üniversitesi Logo">
+                    <!-- alt etiketi: Erişilebilirlik ve SEO için kullanılır -->
+                </div>
+
+                <form id="globalLoginForm" class="login-form">
+                    <!-- Kullanıcı kimlik doğrulama formunun başlangıcı. id ile JavaScript tarafından izlenir. -->
+
+                    <div class="input-group">
+                        <!-- Kullanıcı adı alanı grubu -->
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <!-- Font Awesome kullanıcı ikonu -->
+                        <input type="text" id="globalStudentId" placeholder="T.C. / Kullanıcı Adı" required>
+                        <!-- required: Boş gönderimi istemci tarafında engeller -->
+                    </div>
+
+                    <div class="input-group">
+                        <!-- Şifre alanı grubu -->
+                        <div class="input-icon"><i class="fas fa-lock"></i></div><!-- Font Awesome kullanıcı ikonu -->
+                        <input type="password" id="globalPassword" placeholder="Şifreniz" required>
+                        <!-- type="password": Girilen karakterleri gizler -->
+                    </div>
+
+                    <button type="submit" class="global-login-btn">
+                        <!-- Formu gönderen ana giriş butonu -->
+                        <span>Giriş</span>
+                        <!--Buton üzerindeki "Giriş" yazısı.-->
+                        <i class="fas fa-arrow-right"></i>
+                        <!-- Giriş yazısının yanındaki ok ikonu. -->
+                    </button>
+
+                    <div class="login-footer-icons">
+                        <!-- Giriş ekranı altındaki yardımcı bağlantılar -->
+
+                        <div class="footer-icon-item">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Kayıt Ol</span>
+                        </div>
+
+                        <div class="footer-icon-item">
+                            <i class="fas fa-question"></i>
+                            <span>Şifremi unuttum?</span>
+                        </div>
+
+                        <div class="footer-icon-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Cep Tel. Güncelle</span>
+                        </div>
+
+                        <div class="footer-icon-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Bilgi Rehberleri</span>
+                        </div>
+
+                        <div class="footer-icon-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Öğrenci İstatistikleri</span>
+                        </div>
+                        <!-- İkon + metin grupları UX iyileştirmesi sağlar -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD : Girişten sonra açılan ana uygulama alanı -->
+    <div class="app-container" id="appContainer" style="display: none;">
+        <!-- display:none : Kullanıcı giriş yapana kadar gizli (State Management) -->
+
+        <!-- SIDEBAR : Sol navigasyon menüsü -->
+        <div class="sidebar">
+
+            <div class="sidebar-profile">
+                <!-- Yan menüde mini profil alanı -->
+                <img src="https://ui-avatars.com/api/?name=Ogrenci&background=random" 
+                id="miniProfileImg" alt="Profile">
+                <!-- Profil fotoğrafı için ui-avatars.com sitesinden otomatik avatar oluşturulur .-->
+
+                <div class="sidebar-profile-info">
+                    <!--Öğrenci adı ve durum noktacıklarını içerir.-->
+                    <span id="sidebarName">Öğrenci Girişi</span>
+                    <div class="status-dots">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-quick-icons">
+                <!-- Hızlı erişim ikonları -->
+                <a href="#"><img src="https://cdn.countryflags.com/thumbs/turkey/flag-round-250.png" class="flag-icon"></a>
+                <a href="#"><i class="fas fa-home"></i></a>
+                <a href="#"><i class="fas fa-comments"></i></a>
+                <a href="#"><i class="fas fa-question-circle"></i></a>
+                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i></a>
+                <!-- Çıkış butonu JavaScript logout fonksiyonunu çağırır. -->
+            </div>
+
+            <div class="search-box">
+                <!-- Menü içi arama kutusu -->
+                <input type="text" placeholder="ara...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="menu-section">
+                <!-- OBS modüllerinin listelendiği bölüm -->
+                <div class="menu-header">
+                    <span>Öğrenci Bilgi Sistemi</span>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+
+                <ul class="nav-list">
+                    <!-- Navigasyon listesi -->
+                    <li><i class="fas fa-user"></i> Kişisel Bilgiler <i class="far fa-circle right-icon"></i></li>
+                    <li><i class="fas fa-edit"></i> Başvuru İşlemleri <i class="far fa-circle right-icon"></i></li>
+                    <li><i class="fas fa-graduation-cap"></i> Öğrenim <i class="far fa-circle right-icon"></i></li>
+                    <li><i class="fas fa-envelope"></i> Mesajlaşma <i class="far fa-circle right-icon"></i></li>
+                    <li><i class="fas fa-file-alt"></i> Belge Talep <i class="far fa-circle right-icon"></i></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT : Sağ taraftaki dinamik içeriğin yüklendiği ana bölge. -->
+        <div class="main-content">
+
+            <div class="top-bar">
+                <!-- Geri dönüş / navigasyon kontrolü .Sayfanın üst kısmında bulunan gezinme ve kontrol çubuğu.-->
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="student-header-card">
+                <!-- Öğrencinin büyük profil fotoğrafı ve özet bilgilerini içeren kart. -->
+
+                <div class="student-photo-large">
+                    <!-- Büyük profil fotoğrafı alanı -->
+                    <img src="https://ui-avatars.com/api/?name=Ogrenci&size=128" id="mainProfileImg" alt="Student">
+                </div>
+
+                <div class="student-info-large">
+                    <!-- Öğrenci adı, bölüm ve aksiyon butonlarını içeren alan. -->
+                    <h2 id="mainName">Öğrenci Adı <i class="fas fa-circle text-success" style="font-size: 10px;"></i></h2>
+                    <span class="role-badge" id="facultyDept">Fakülte / Bölüm</span>
+
+                    <div class="action-buttons">
+                        <!-- Bildirim ve aksiyon butonları.Mesaj butonu. Badge (etiket) ile okunmamış mesaj sayısını gösterir.-->
+                        <button><i class="fas fa-user"></i></button>
+                        <button class="badge-btn"><i class="fas fa-envelope"></i> <span>3</span></button>
+                        <!-- Bildirim butonu. Badge (etiket) ile okunmamış bildirim sayısını gösterir.-->
+                        <button class="badge-btn"><i class="fas fa-bell"></i> <span>0</span></button>
+                        <button><i class="fas fa-question"></i></button>
+                        <button><i class="fas fa-cog"></i></button>
+                    </div>
+
+                    <div class="student-meta">
+                        <!-- Öğrenci No ve Sınıf bilgisini gösteren alt metin. -->
+                        Öğrenci No : <span class="red-text" id="studentNo">000000000</span> |
+                        Sınıf : <span class="red-text" id="studentGrade">1.Sınıf</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-tabs">
+                <!-- Ana içeriği sekmelere ayıran yatay navigasyon. -->
+                <button class="active"><i class="fas fa-bullhorn"></i> Duyurular</button>
+                <!--Şu anda aktif olan (görüntülenen) sekme.-->
+                <button><i class="fas fa-chart-bar"></i> Sınavlar</button>
+                <button><i class="fas fa-book-open"></i> Notlar</button>
+                <button><i class="fas fa-desktop"></i> DBS</button>
+            </div>
+
+            <div class="dashboard-body">
+                <!-- Sekmelere ait içerik alanı -->
+
+                <div class="text-controls">
+                    <!-- Yazı boyutu kontrolü (Accessibility) -->
+                    <span>+ Aa -</span>
+                    <small>Duyurular</small>
+                </div>
+
+                <div class="green-banner">
+                    <!-- Öne çıkarılmış, önemli duyurular için kullanılan renkli banner. -->
+                    Kültürel ve Sportif Faaliyetlere katılım için tıklayınız
+                </div>
+
+                <div class="announcement-card">
+                    <!-- Tek bir duyurunun başlık, metin ve tarihini gösteren kart yapısı. -->
+                    <h3>2024-2025 Eğitim-Öğretim Yılı Güz Yarıyılı Ara Sınav Programı</h3>
+                    <p>Fakültemiz 2024-2025 Eğitim-Öğretim Yılı Güz Yarıyılı Ara Sınav Programı ekte yer almaktadır.</p>
+                    <div class="announcement-footer">
+                        <span><i class="fas fa-calendar"></i> 09.12.2024</span>
+                        <span class="time-ago">1 gün önce</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHATBOT WIDGET : Yardımcı asistan bileşeni -->
+    <button class="chat-toggle-btn" onclick="toggleChat()">
+        <!-- Chatbot aç/kapat butonu -->
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot" width="30">
+    </button>
+
+    <div class="chat-widget" id="chatWidget">
+        <!-- Chatbot ana penceresi -->
+
+        <div class="widget-screen" id="widgetChat" style="display: flex;">
+            <!-- Chatbot'un içerik ekranı. display:flex ile görünür hale gelir. -->
+            <div class="widget-header">
+                <div class="header-details">
+                    <span class="status-dot"></span>
+                    <h3 id="chatHeaderName">Asistan</h3>
+                </div>
+                <div>
+                    <button onclick="logout()" class="icon-btn"><i class="fas fa-sign-out-alt"></i></button>
+                    <button onclick="toggleChat()"
+                    
+                    class="close-btn"><i class="fas fa-times"></i></button>
+                    <!-- Chatbot penceresinden Çıkış ve kapatma butonları -->
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- Mesajların listelendiği alan -->
+                <div class="message bot-message">
+                    <!-- Botun ilk karşılama mesajı. -->
+                    <div 
+                    class="message-content">Merhaba! Ben OBS Asistanınız.</div>
+                    <div 
+                    class="message-time">Şimdi</div>
+                </div>
+            </div>
+
+            <div class="quick-chips">
+                <!-- Kullanıcının hızlı soru sormasını sağlayan ön tanımlı butonlar. -->
+                <button onclick="sendQuickMessage('Sınav tarihlerim?')">Sınavlar</button>
+                <!-- Hızlı mesaj gönderen buton (JavaScript'teki sendQuickMessage() fonksiyonunu çağırır). -->
+                <button onclick="sendQuickMessage('Notlarım')">Notlar</button>
+                <button onclick="sendQuickMessage('Ders Programı')">Program</button>
+                <button onclick="sendQuickMessage('Yardım')">Yardım</button>
+            </div>
+
+            <div class="chat-input-area">
+                <!-- Mesaj yazma alanı -->
+                <form id="chatForm">
+                    <!-- Mesaj gönderme formu -->
+                    <input type="text" id="messageInput" placeholder="Bir soru sorun..." autocomplete="off">
+                    <!-- autocomplete=off : Önceki mesaj önerilerini kapatır -->
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=obs_v2_final"></script>
+    <!-- JavaScript dosyasını bağlar.JavaScript dosyası: Dinamik işlemler ve cache busting -->
+</body>
+<!-- gövde sonu--> 
+
+
+</html> 
+<!-- HTML belgesinin sonu -->

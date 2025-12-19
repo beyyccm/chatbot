@@ -1,0 +1,30 @@
+INFO:     Started server process [33491]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+Seeding database with grade levels and comprehensive data...
+INFO:     5.229.45.250:0 - "GET / HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "GET /style.css HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "GET /script.js?v=bypass2 HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+DEBUG: Received ID='21010101' PASS='12345'
+DEBUG: Stored ID='21010101' PASS='12345'
+INFO:     5.229.45.250:0 - "POST /api/login HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+DEBUG INSTRUCTORS: Count=7
+DEBUG ROW 0: {'name': 'İngilizce I', 'code': 'ENG101', 'exam_date': '2025-01-02 10:00', 'schedule': 'Online', 'midterm': None, 'final': None, 'is_retake': 0, 'is_exempt': 1, 'attendance_absent': 0, 'project_topic': None, 'project_deadline': None, 'project_note': None, 'instructor_name': 'Dr. Zeynep İngilizceci', 'instructor_office': 'Yabancı Diller YD-101', 'instructor_email': 'zeynep.lang@atauni.edu.tr'}
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     5.229.45.250:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [33491]
