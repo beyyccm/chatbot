@@ -1,84 +1,185 @@
-🎓 OBS Akıllı Chatbot & Dashboard Sistemi
-Bu proje, Atatürk Üniversitesi Öğrenci Bilgi Sistemi (OBS) arayüzünü modern bir Dashboard ve yapay zeka destekli bir Chatbot ile birleştiren tam kapsamlı bir web uygulamasıdır. Öğrenciler notlarını, sınavlarını ve programlarını hem görsel bir panel üzerinden takip edebilir hem de asistan ile konuşarak sorgulayabilirler.
+# 🎓 OBS Akıllı Chatbot & Dashboard Sistemi
 
-🚀 Proje Genel Bakış
-Uygulama, öğrenci odaklı bir kullanıcı deneyimi sunmak amacıyla iki ana bölüme ayrılmıştır:
+Bu proje, **Atatürk Üniversitesi Öğrenci Bilgi Sistemi (OBS)** arayüzünü modern bir **Dashboard** ve **yapay zekâ destekli Chatbot** ile birleştiren tam kapsamlı bir web uygulamasıdır. Öğrenciler; notlarını, sınavlarını ve ders programlarını hem görsel bir panel üzerinden takip edebilir hem de doğal dil kullanarak akıllı asistana soru sorabilir.
 
+> **Not:** Proje eğitim amaçlı bir OBS simülasyonudur.
 
-Giriş Paneli: Kurumsal kimliğe uygun, güvenli giriş ekranı.
+---
 
+## 🚀 Proje Genel Bakış
 
+Uygulama, öğrenci odaklı bir kullanıcı deneyimi sunmak amacıyla üç ana bileşenden oluşur:
 
-Öğrenci Dashboard: Kişisel bilgiler, duyurular, sınavlar ve notların yer aldığı dinamik yönetim alanı.
+### 🔐 Giriş Paneli
 
+* Kurumsal kimliğe uygun, sade ve güvenli tasarım
+* Öğrenci numarası ve şifre ile kimlik doğrulama
 
+### 📊 Öğrenci Dashboard
 
-Akıllı Asistan: Kullanıcının doğal dildeki sorularını (örn: "Hangi bölümdeyim?", "Notlarım nasıl?") cevaplayan entegre chatbot.
+* Kişisel bilgiler
+* Duyurular
+* Dersler, sınavlar ve notlar
+* Dinamik ve responsive (mobil uyumlu) arayüz
 
+### 🤖 Akıllı Asistan (Chatbot)
 
+* Doğal dilde soruları anlama (örn: *“Hangi bölümdeyim?”*, *“AGNO kaç?”*)
+* Veritabanından anlık veri çekme
+* Not ortalaması (AGNO) gibi hesaplamaları gerçek zamanlı yapma
 
-🛠️ Teknik Mimari ve Çalışma Adımları
-1. Backend (Sunucu Tarafı)
+---
 
-Framework: Python tabanlı FastAPI ile yüksek performanslı asenkron API yapısı.
+## 🛠️ Teknik Mimari
 
+### Backend (Sunucu Tarafı)
 
-Veritabanı: SQLite kullanılarak ilişkisel bir şema oluşturulmuştur (students, instructors, courses, enrollments).
+* **Programlama Dili:** Python 3.x
+* **Framework:** FastAPI (asenkron, yüksek performanslı API)
+* **Veritabanı:** SQLite
+* **ORM / Veri Erişimi:** Basit ve ilişkisel yapı
 
+#### Veritabanı Şeması
 
+* `students`
+* `instructors`
+* `courses`
+* `enrollments`
 
+#### İş Mantığı
 
-Mantıksal İşlem: chatbot_logic.py dosyası, gelen mesajları analiz ederek veritabanından doğru bilgiyi çeker ve AGNO (ortalama) gibi hesaplamaları anlık yapar.
+* `chatbot_logic.py` dosyası:
 
+  * Kullanıcı mesajını analiz eder
+  * Niyet (intent) belirler
+  * Veritabanından uygun bilgiyi çeker
+  * AGNO ve benzeri hesaplamaları yapar
 
-2. Frontend (Arayüz Tarafı)
-HTML5 & CSS3: Responsive (mobil uyumlu) tasarım. Kurumsal kırmızı ve gece mavisi paleti ile profesyonel görünüm.
+---
 
+### Frontend (İstemci Tarafı)
 
+* **HTML5:** Sayfa iskeleti ve semantik yapı
+* **CSS3:** Responsive tasarım, animasyonlar ve kurumsal renk paleti
 
-Vanilla JavaScript: Hiçbir ağır kütüphane kullanmadan, asenkron fetch istekleri ile backend ile haberleşen dinamik yapı.
+  * Kurumsal kırmızı
+  * Gece mavisi
+* **JavaScript (Vanilla JS):**
 
+  * `fetch` API ile backend haberleşmesi
+  * Dinamik içerik render işlemleri
 
+#### State Management
 
+* Kullanıcıya ait oturum verileri (`id`, `isim`, `bölüm` vb.)
+* Tarayıcı **localStorage** alanında yönetilir
 
-State Management: Kullanıcı oturum verileri (ID, isim, bölüm vb.) tarayıcının localStorage alanında güvenli bir şekilde yönetilir.
+---
 
+## 🔄 Uygulama İş Akışı
 
-3. Çalışma Adımları (İş Akışı)
-Kullanıcı öğrenci numarası ve şifresiyle giriş yapar.
+1. Kullanıcı, öğrenci numarası ve şifresiyle giriş yapar.
+2. Backend, kimlik doğrulamasını gerçekleştirir.
+3. Öğrenciye ait bilgiler (dersler, notlar, AGNO vb.) döndürülür.
+4. Dashboard ekranı render edilir.
+5. Chatbot aktifleşir.
+6. Kullanıcı chat alanına mesaj gönderir.
+7. Asistan, veritabanındaki güncel bilgileri kullanarak anında yanıt üretir.
 
+---
 
+## 📁 Proje Dosya Yapısı
 
-Backend kimlik doğrulamasını yapar ve öğrenciye ait AGNO, dersler gibi bilgileri döner.
+```text
+OBS-Chatbot-Dashboard/
+│
+├── main.py                # API uç noktaları (Login & Chat)
+├── database.py            # Veritabanı şeması ve örnek veri (Seed)
+├── chatbot_logic.py       # Chatbot karar mekanizması ve NLP mantığı
+├── requirements.txt       # Gerekli Python paketleri
+│
+├── static/                # Frontend kaynakları
+│   ├── index.html         # Dashboard ve arayüz iskeleti
+│   ├── style.css          # Responsive tasarım ve animasyonlar
+│   └── script.js          # API entegrasyonu ve UI kontrolleri
+│
+├── tests/                 # Otomatik test scriptleri
+└── README.md              # Proje dokümantasyonu
+```
 
-Başarılı girişte script.js dashboard ekranını render eder ve asistanı aktifleşir.
+---
 
+## 👥 Ekip ve Rol Dağılımı
 
+Bu proje **4 kişilik bir ekip** tarafından geliştirilmiştir:
 
-Kullanıcı chat alanına mesaj yazdığında, asistan veritabanındaki güncel verileri (vize/final notu, sınav tarihi vb.) anında yanıtlar.
-📁 Proje Dosya Yapısı
+* **Backend Developer**
 
-├── main.py              # API uç noktaları (Login & Chat)
-├── database.py          # Veritabanı şeması ve örnek veri (Seed)
-├── chatbot_logic.py     # Karar mekanizması ve NLP mantığı
-├── requirements.txt     # Gerekli Python paketleri
-├── static/              # Frontend kaynakları
-│   ├── index.html       # Ana iskelet ve Dashboard yapısı
-│   ├── style.css        # Responsive tasarım ve animasyonlar
-│   └── script.js        # API entegrasyonu ve UI kontrolleri
-└── tests/               # Otomatik test scriptleri
-👥 Ekip ve Rol Dağılımı
-Backend Developer: API tasarımı, veritabanı yönetimi ve chatbot algoritmasının geliştirilmesi.
+  * API tasarımı
+  * Veritabanı yönetimi
+  * Chatbot algoritması ve iş mantığı
 
-Frontend Developer: Dashboard arayüz tasarımı, CSS animasyonları ve JavaScript asenkron veri yönetimi.
+* **Frontend Developer**
 
-QA & Test: Login senaryoları, niyet (intent) testleri ve veritabanı doğrulama işlemleri.
+  * Dashboard arayüz tasarımı
+  * CSS animasyonları
+  * JavaScript asenkron veri yönetimi
 
-⚙️ Kurulum ve Çalıştırma
-Bağımlılıkları yükleyin: pip install -r requirements.txt.
+* **QA & Test**
 
-Uygulamayı başlatın: ./run_app.sh veya python3 main.py.
+  * Login senaryoları
+  * Chatbot niyet (intent) testleri
+  * Veritabanı doğrulama işlemleri
 
-Tarayıcıdan erişin: http://localhost:8000.
+---
 
-Not: Bu proje eğitim amaçlı geliştirilmiş bir OBS simülasyonudur. Veritabanı ilk çalıştırmada otomatik olarak örnek verilerle oluşturulur.Dört kişilik bir ekip çalışmasıdır.
+## ⚙️ Kurulum ve Çalıştırma
+
+### 1️⃣ Depoyu Klonlayın
+
+```bash
+git clone https://github.com/kullanici-adi/obs-chatbot-dashboard.git
+cd obs-chatbot-dashboard
+```
+
+### 2️⃣ Bağımlılıkları Yükleyin
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3️⃣ Uygulamayı Başlatın
+
+```bash
+python main.py
+```
+
+veya
+
+```bash
+./run_app.sh
+```
+
+### 4️⃣ Tarayıcıdan Erişin
+
+```text
+http://localhost:8000
+```
+
+---
+
+## ℹ️ Ek Bilgiler
+
+* Veritabanı, ilk çalıştırmada **otomatik olarak örnek verilerle** oluşturulur.
+* Proje, gerçek OBS sistemlerini temsil etmez.
+* Tamamen **eğitim ve akademik amaçlıdır**.
+
+---
+
+## 📌 Lisans
+
+Bu proje eğitim amaçlıdır. Dört kişilik bir ekip ile yapılmıştır.İlgili üniversite ve kurumlarla resmi bir bağlantısı yoktur.
+
+---
+
+**Geri bildirimleriniz ve katkılarınız memnuniyetle karşılanır.**
