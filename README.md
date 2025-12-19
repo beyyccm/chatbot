@@ -56,10 +56,7 @@ Başarılı girişte script.js dashboard ekranını render eder ve asistanı akt
 
 
 Kullanıcı chat alanına mesaj yazdığında, asistan veritabanındaki güncel verileri (vize/final notu, sınav tarihi vb.) anında yanıtlar.
-
-
 📁 Proje Dosya Yapısı
-Plaintext
 
 ├── main.py              # API uç noktaları (Login & Chat)
 ├── database.py          # Veritabanı şeması ve örnek veri (Seed)
